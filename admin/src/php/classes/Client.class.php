@@ -1,11 +1,7 @@
 <?php
-
-declare(strict_types=1);
-
-class Client implements JsonSerializable
-{
+class Client implements JsonSerializable {
     public function __construct(
-        public readonly int    $id_utilisateur,
+        public readonly int $id_utilisateur,
         public readonly string $email,
         public readonly string $mot_de_passe,
         public readonly string $nom,
@@ -16,13 +12,9 @@ class Client implements JsonSerializable
         public readonly string $code_postal,
         public readonly string $ville,
         public readonly string $pays,
-        public readonly int    $id_adresse
-    ) {
-    }
-
-    /* Méthode qui sérialise l'objet construit pour la classe DAO, qui le retournera au fichier ajax */
-    public function jsonSerialize(): mixed
-    {
+        public readonly int $id_adresse
+    ) {}
+    public function jsonSerialize(): mixed {
         return get_object_vars($this);
     }
 }

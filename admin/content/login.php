@@ -1,31 +1,26 @@
-<?php //Traitement du formulaire
-
-if(isset($_GET['submit'])) {
-    extract($_GET, EXTR_OVERWRITE);
-    print "login : ".$login;
-    if(!empty($login) && !empty($password)) {
-        $admin = new AdminDAO($cnx);
-        $adm = $admin->getAdmin($login, $password);
-        var_dump($admin);
-        $_SESSION['admin'] = 1;
-        $_SESSION['page'] = "accueil.php"; //page par défaut
-        header("location:./index_.php?page=accueil.php");
-        exit(); //pour arrêter l'exécution de la suite
+<?php
+if (isset($_GET['submit'])) {
+    require '../src/php/classes/AdminDAO.class.php';
+    $adminDAO = new AdminDAO($cnx);
+    $adm = $adminDAO->getAdmin($_GET['login'], $_GET['password']);
+    if ($adm) {
+        $_SESSION['admin'] = $adm;
+        header("Location: ../src/index_.php?page=accueil");
+        exit;
+    } else {
+        $erreur = "Identifiants invalides";
     }
 }
-
-
 ?>
-<form method="get" action="<?= $_SERVER['PHP_SELF'] ?>"> <!—choix d'un formulaire Bootstrap --></form>
-<form>
+<form method="get" action="">
     <div class="mb-3">
-        <label for="login" class="form-label">Login address</label>
-        <input type="text" class="form-control" id="login" aria-describedby="emailHelp" name="login">
+        <label for="login" class="form-label">Email</label>
+        <input type="text" class="form-control" id="login" name="login">
     </div>
     <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">Mot de passe</label>
         <input type="password" class="form-control" id="password" name="password">
     </div>
-
-    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+    <button type="submit" class="btn btn-primary" name="submit">Se connecter</button>
+    <?php if (isset($erreur)) echo "<div class='alert alert-danger mt-2'>$erreur</div>"; ?>
 </form>

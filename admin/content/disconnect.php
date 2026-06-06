@@ -1,2 +1,5 @@
-<?php session_destroy();
-header("location:../index_.php?page=accueil.php");
+<?php
+session_start();
+session_destroy();
+header("Location: ../../index_.php?page=accueil");
+exit;

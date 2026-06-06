@@ -1,45 +1,18 @@
-<?php class AdminDAO
-{
+<?php
+class AdminDAO {
     private PDO $_cnx;
-
-
-    public function __construct($cnx)
-    {
-        $this->_cnx = $cnx;
-    }
-
-    public
-    function getAdmin($login, $password)
-    { //!!!! lorsqu'une fct plpgsql retourne une table, cette fonction est semblable à une table
-        //// virtuelle --> l'appeler comme une table / vue
-        $query = "select * from get_admin(:login,:password)";
-        try {
-            /// //Transaction + requête préparée //…
-
-            $this->_cnx->beginTransaction();
-            $stmt = $this->_cnx->prepare($query);
-            $stmt->bindValue(':login', $login);
-            $stmt->bindValue(':password', $password);
-            $stmt->execute();
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            //Transaction :
-            $this->_cnx->commit();
-            if (!$data) {
-                return null;
-            }
-            if ((int)$data['id_admin'] === -1 && $data['nom_admin'] === '' && (int)$data['statut'] === -1) {
-                return null;
-            }
-
-            return new Admin(
-                id_admin: (int)$data['id_admin']
-                , nom_admin: $data['nom_admin']
-                , statut: (int)$data['statut']
-            );
-
-        } catch (PDOException $e) {
-            $this->_cnx->rollBack();
-            print $e->getMessage();
+    public function __construct(PDO $cnx) { $this->_cnx = $cnx; }
+    public function getAdmin($email, $password) {
+        $sql = "SELECT u.*, a.niveau_acces
+                FROM Utilisateur u
+                JOIN Administrateur a ON u.id_utilisateur = a.id_utilisateur
+                WHERE u.email = :email AND u.type_utilisateur = 'administrateur'";
+        $stmt = $this->_cnx->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($data && password_verify($password, $data['mot_de_passe'])) {
+            return $data;
         }
+        return null;
     }
 }

@@ -1,30 +1,30 @@
 <?php
+// Détection automatique de l'environnement (front ou admin ou ajax)
+$isAdmin = str_contains($_SERVER['REQUEST_URI'], '/admin/src/') || str_contains($_SERVER['REQUEST_URI'], '/admin/src/php/ajax/');
 
-$isAdmin = str_contains($_SERVER['REQUEST_URI'], 'admin');
-if ($isAdmin)
-{
-    $pathDb = 'src/php/db/db_pg_connect.php';
-    $pathAutoloader = 'src/php/classes/Autoloader.class.php';
-    if(!file_exists($pathDb)){ //depuis dossier ajax
-        $pathDb = '../db/db_pg_connect.php';
-        $pathAutoloader = '../classes/autoloader.class.php';
-    }
+if ($isAdmin) {
+    $pathDb = __DIR__ . '/../db/db_pg_connect.php';
+    $pathAutoloader = __DIR__ . '/../classes/Autoloader.class.php';
+} else {
+    $pathDb = __DIR__ . '/../../../../admin/src/php/db/db_pg_connect.php';
+    $pathAutoloader = __DIR__ . '/../../../../admin/src/php/classes/Autoloader.class.php';
+}
 
-}
-else
-{
-    $pathDb = 'admin/src/php/db/db_pg_connect.php';
-    $pathAutoloader = 'admin/src/php/classes/Autoloader.class.php';
-}
-if (file_exists($pathDb) && file_exists($pathAutoloader))
-{
-    include $pathDb;
-    include $pathAutoloader;
+if (file_exists($pathDb) && file_exists($pathAutoloader)) {
+    require_once $pathDb;
+    require_once $pathAutoloader;
     Autoloader::register();
-
     $cnx = Connexion::getInstance($dsn, $user, $pass);
+} else {
+    die("Fichiers de configuration manquants.");
 }
-else
-{
-    die("Impossible de charger les fichiers");
+
+function getImageUrl($imageName) {
+    if (empty($imageName)) {
+        return "admin/assets/images/default.jpg";
+    }
+    if (filter_var($imageName, FILTER_VALIDATE_URL)) {
+        return $imageName;
+    }
+    return "admin/assets/images/" . ltrim($imageName, '/');
 }

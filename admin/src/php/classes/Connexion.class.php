@@ -1,13 +1,11 @@
 <?php
-class Connexion
-{
-    public static function getInstance($dsn, $user, $pass){
-        try{
-            $pdo = new PDO($dsn,$user,$pass);
-            var_dump($pdo);
-            return $pdo;
-        } catch(PDOException $e){
-            print "Erreur : ".$e->getMessage();
+class Connexion {
+    public static function getInstance($dsn, $user, $pass): ?PDO {
+        try {
+            return new PDO($dsn, $user, $pass);
+        } catch(PDOException $e) {
+            error_log($e->getMessage());
+            return null;
         }
     }
 }
