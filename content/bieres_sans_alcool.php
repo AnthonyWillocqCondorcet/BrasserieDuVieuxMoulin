@@ -11,7 +11,8 @@ $bieres = $biereDAO->getBieresSansAlcool();
                 <img src="<?= htmlspecialchars(getImageUrl($b['image'])) ?>" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5><?= htmlspecialchars($b['nom']) ?></h5>
-                    <p><?= number_format($b['prix'],2) ?> €</p>
+                    <p><?= number_format($b['prix'],2) ?> € - <?= $b['taux_alcool'] ?>%</p>
+                    <a href="index_.php?page=details_biere&id=<?= $b['id_biere'] ?>" class="btn btn-sm btn-outline-primary">Détails</a>
                 </div>
             </div>
         </div>

@@ -24,30 +24,6 @@ $bieres = $biereDAO->getAllBieres();
     <?php endforeach; ?>
     </tbody>
 </table>
-<script>
-    $(function(){
-        $('.editable').dblclick(function(){
-            var td = $(this);
-            var champ = td.data('field');
-            var ancien = td.text().trim();
-            var id = td.closest('tr').data('id');
-            var input = $('<input type="text" class="form-control form-control-sm" value="'+ancien+'">');
-            td.html(input);
-            input.focus().blur(function(){
-                var nouveau = input.val();
-                $.get('../src/php/ajax/ajaxUpdateBiere.php', {champ: champ, nouveau: nouveau, id_biere: id}, function(data){
-                    if(data === true) td.text(nouveau);
-                    else td.text(ancien);
-                });
-            });
-        });
-        $('.deleteBiere').click(function(){
-            if(confirm('Supprimer cette bière ?')){
-                var id = $(this).closest('tr').data('id');
-                $.get('../src/php/ajax/ajaxDeleteBiere.php', {id_biere: id}, function(){
-                    location.reload();
-                });
-            }
-        });
-    });
-</script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/gestion_biere.js"></script>

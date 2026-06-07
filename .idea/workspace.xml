@@ -4,15 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be721bbb-4e8b-4dcd-98ee-358d7a15d8c6" name="Changes" comment="Corrections et affichage des bières">
+    <list default="true" id="be721bbb-4e8b-4dcd-98ee-358d7a15d8c6" name="Changes" comment="Corrections pour l'inscription et login">
+      <change afterPath="$PROJECT_DIR$/admin/assets/js/gestion_biere.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/php/classes/BrasserieDAO.class.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/details_biere.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/index_.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/index_.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/php/classes/ClientDAO.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/php/classes/ClientDAO.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/php/utils/all_includes.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/php/utils/all_includes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/php/utils/public_menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/php/utils/public_menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/compte.php" beforeDir="false" afterPath="$PROJECT_DIR$/content/compte.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/disconnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/content/disconnect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/content/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/admin/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/content/ajout_biere.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/content/ajout_biere.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/content/gestion_biere.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/content/gestion_biere.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/php/ajax/ajaxDeleteBiere.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/php/ajax/ajaxDeleteBiere.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/php/ajax/ajaxUpdateBiere.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/php/ajax/ajaxUpdateBiere.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/php/utils/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/php/utils/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/bieres_par_couleur.php" beforeDir="false" afterPath="$PROJECT_DIR$/content/bieres_par_couleur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/bieres_par_prix.php" beforeDir="false" afterPath="$PROJECT_DIR$/content/bieres_par_prix.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/bieres_sans_alcool.php" beforeDir="false" afterPath="$PROJECT_DIR$/content/bieres_sans_alcool.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index_.php" beforeDir="false" afterPath="$PROJECT_DIR$/index_.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +33,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="PHP File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -134,7 +141,7 @@
       <workItem from="1778848876472" duration="3455000" />
       <workItem from="1779362584772" duration="1388000" />
       <workItem from="1780742810783" duration="13364000" />
-      <workItem from="1780844099178" duration="428000" />
+      <workItem from="1780844099178" duration="5251000" />
     </task>
     <task id="LOCAL-00001" summary="Premier commit">
       <option name="closed" value="true" />
@@ -168,7 +175,23 @@
       <option name="project" value="LOCAL" />
       <updated>1780757283199</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Corrections pour l'inscription et login">
+      <option name="closed" value="true" />
+      <created>1780844780667</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1780844780668</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Corrections pour l'inscription et login">
+      <option name="closed" value="true" />
+      <created>1780845103884</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1780845103884</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +222,7 @@
     <MESSAGE value="Premier commit" />
     <MESSAGE value="Création de la structure du site" />
     <MESSAGE value="Corrections et affichage des bières" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrections et affichage des bières" />
+    <MESSAGE value="Corrections pour l'inscription et login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrections pour l'inscription et login" />
   </component>
 </project>

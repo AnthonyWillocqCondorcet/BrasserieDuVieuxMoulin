@@ -1,3 +1,41 @@
-body { background-color: #f8f9fa; }
-.card-img-top { height: 200px; object-fit: cover; }
-footer { margin-top: 2rem; }
+body {
+    background-color: #f8f9fa;
+}
+
+/* Uniformisation des images dans les cartes */
+.card-img-top {
+    height: 150px;
+    object-fit: contain;
+    object-position: center;
+    background-color: #f8f9fa;
+}
+.object-fit-contain {
+    object-fit: contain;
+}
+
+/* Animation au survol des cartes bières */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.card:hover .card-img-top {
+    opacity: 0.9;
+}
+
+/* Footer collé en bas */
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+#wrapper {
+    flex: 1;
+}
+footer {
+    margin-top: auto;
+}
