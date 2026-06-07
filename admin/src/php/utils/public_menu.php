@@ -11,8 +11,8 @@
                 <li class="nav-item"><a class="nav-link" href="index_.php?page=bieres_par_couleur&couleur=Blonde">Blondes</a></li>
                 <li class="nav-item"><a class="nav-link" href="index_.php?page=bieres_par_prix">Prix</a></li>
                 <li class="nav-item"><a class="nav-link" href="index_.php?page=bieres_sans_alcool">Sans alcool</a></li>
-                <?php if (isset($_SESSION['client'])): ?>
-                    <li class="nav-item"><a class="nav-link" href="index_.php?page=disconnect">Déconnexion</a></li>
+                <?php if (isset($_SESSION['client']) || isset($_SESSION['admin'])): ?>
+                    <li class="nav-item"><a class="nav-link" href="content/disconnect.php">Déconnexion</a></li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="index_.php?page=login">Connexion</a></li>
                     <li class="nav-item"><a class="nav-link" href="index_.php?page=compte">Inscription</a></li>

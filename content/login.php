@@ -1,13 +1,11 @@
 <?php
-require_once "admin/src/php/classes/ClientDAO.class.php";
-require_once "admin/src/php/classes/AdminDAO.class.php";
+require_once "admin/src/php/utils/all_includes.php";
 
+$erreur = '';
 if (isset($_POST['login'])) {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
-    $erreur = '';
 
-    // 1. Essayer de connecter un client
     $clientDAO = new ClientDAO($cnx);
     $client = $clientDAO->getClient($email, $password);
     if ($client) {
@@ -16,7 +14,6 @@ if (isset($_POST['login'])) {
         exit;
     }
 
-    // 2. Sinon, essayer de connecter un administrateur
     $adminDAO = new AdminDAO($cnx);
     $admin = $adminDAO->getAdmin($email, $password);
     if ($admin) {
@@ -25,7 +22,6 @@ if (isset($_POST['login'])) {
         exit;
     }
 
-    // 3. Aucun compte trouvé
     $erreur = "Email ou mot de passe incorrect";
 }
 ?>
@@ -33,7 +29,7 @@ if (isset($_POST['login'])) {
     <div class="col-md-6">
         <div class="card p-4">
             <h3 class="text-center mb-4">Connexion</h3>
-            <?php if (isset($erreur)): ?>
+            <?php if ($erreur): ?>
                 <div class="alert alert-danger"><?= htmlspecialchars($erreur) ?></div>
             <?php endif; ?>
             <form method="post">

@@ -1,5 +1,4 @@
 <?php
-session_start();
 require "admin/src/php/utils/all_includes.php";
 ?>
 <!doctype html>

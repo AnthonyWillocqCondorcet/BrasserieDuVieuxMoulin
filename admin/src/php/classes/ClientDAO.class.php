@@ -21,22 +21,62 @@ class ClientDAO {
     public function addClient($email, $password, $nom, $prenom, $date_naissance, $rue, $numero, $code_postal, $ville, $pays) {
         try {
             $this->_cnx->beginTransaction();
-            // Utilisateur
-            $stmt = $this->_cnx->prepare("INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe, date_inscription, type_utilisateur) VALUES (:nom, :prenom, :email, :password, NOW(), 'client') RETURNING id_utilisateur");
-            $stmt->execute([':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':password'=>password_hash($password, PASSWORD_DEFAULT)]);
+
+            // 1. Insertion utilisateur
+            $stmt = $this->_cnx->prepare("
+            INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, date_inscription, type_utilisateur)
+            VALUES (:nom, :prenom, :email, :password, NOW(), 'client')
+            RETURNING id_utilisateur
+        ");
+            $stmt->execute([
+                ':nom' => $nom,
+                ':prenom' => $prenom,
+                ':email' => $email,
+                ':password' => password_hash($password, PASSWORD_DEFAULT)
+            ]);
             $id_util = $stmt->fetchColumn();
-            // Adresse
-            $stmt = $this->_cnx->prepare("INSERT INTO Adresse (rue, numero, code_postal, ville, pays) VALUES (:rue, :numero, :cp, :ville, :pays) RETURNING id_adresse");
-            $stmt->execute([':rue'=>$rue, ':numero'=>$numero, ':cp'=>$code_postal, ':ville'=>$ville, ':pays'=>$pays]);
+
+            if (!$id_util) {
+                throw new Exception("Échec insertion utilisateur");
+            }
+
+            // 2. Insertion adresse
+            $stmt = $this->_cnx->prepare("
+            INSERT INTO adresse (rue, numero, code_postal, ville, pays)
+            VALUES (:rue, :numero, :cp, :ville, :pays)
+            RETURNING id_adresse
+        ");
+            $stmt->execute([
+                ':rue' => $rue,
+                ':numero' => $numero,
+                ':cp' => $code_postal,
+                ':ville' => $ville,
+                ':pays' => $pays
+            ]);
             $id_adr = $stmt->fetchColumn();
-            // Client
-            $stmt = $this->_cnx->prepare("INSERT INTO Client (id_utilisateur, date_naissance, id_adresse) VALUES (:id_util, :date_nais, :id_adr)");
-            $stmt->execute([':id_util'=>$id_util, ':date_nais'=>$date_naissance, ':id_adr'=>$id_adr]);
+
+            // 3. Insertion client (l'adresse peut être NULL si pas d'adresse)
+            $stmt = $this->_cnx->prepare("
+            INSERT INTO client (id_utilisateur, date_naissance, id_adresse)
+            VALUES (:id_util, :date_nais, :id_adr)
+        ");
+            $stmt->execute([
+                ':id_util' => $id_util,
+                ':date_nais' => $date_naissance,
+                ':id_adr' => $id_adr ?: null
+            ]);
+
             $this->_cnx->commit();
-            return $id_util;
+            return (int)$id_util;
+
+        } catch (PDOException $e) {
+            $this->_cnx->rollBack();
+            // Afficher l'erreur pour déboguer (à supprimer ensuite)
+            error_log("addClient PDO Error: " . $e->getMessage());
+            return false;
         } catch (Exception $e) {
             $this->_cnx->rollBack();
-            error_log($e->getMessage());
+            error_log("addClient Error: " . $e->getMessage());
             return false;
         }
     }

@@ -1,20 +1,42 @@
 <?php
-if (isset($_GET['submit_client'])) {
-    require_once "admin/src/php/classes/ClientDAO.class.php";
-    $clientDAO = new ClientDAO($cnx);
-    $retour = $clientDAO->addClient(
-            $_GET['email'], $_GET['password'], $_GET['nom'], $_GET['prenom'],
-            $_GET['date_naissance'], $_GET['rue'], $_GET['numero'],
-            $_GET['code_postal'], $_GET['ville'], $_GET['pays']
-    );
-    if ($retour) {
-        echo "<div class='alert alert-success'>Inscription réussie ! Vous pouvez vous <a href='index_.php?page=login'>connecter</a>.</div>";
+require_once "admin/src/php/utils/all_includes.php";
+
+$message = '';
+$messageType = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_client'])) {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $nom = $_POST['nom'] ?? '';
+    $prenom = $_POST['prenom'] ?? '';
+    $date_naissance = $_POST['date_naissance'] ?? '';
+    $rue = $_POST['rue'] ?? '';
+    $numero = $_POST['numero'] ?? '';
+    $code_postal = $_POST['code_postal'] ?? '';
+    $ville = $_POST['ville'] ?? '';
+    $pays = $_POST['pays'] ?? '';
+
+    if (empty($email) || empty($password) || empty($nom) || empty($prenom) || empty($date_naissance) ||
+            empty($rue) || empty($numero) || empty($code_postal) || empty($ville) || empty($pays)) {
+        $message = "Tous les champs sont obligatoires.";
+        $messageType = "danger";
     } else {
-        echo "<div class='alert alert-danger'>Erreur lors de l'inscription. Vérifiez que l'email n'est pas déjà utilisé.</div>";
+        $clientDAO = new ClientDAO($cnx);
+        $retour = $clientDAO->addClient($email, $password, $nom, $prenom, $date_naissance, $rue, $numero, $code_postal, $ville, $pays);
+        if ($retour) {
+            $message = "Inscription réussie ! Vous pouvez vous <a href='index_.php?page=login'>connecter</a>.";
+            $messageType = "success";
+        } else {
+            $message = "Erreur lors de l'inscription. Vérifiez que l'email n'est pas déjà utilisé.";
+            $messageType = "danger";
+        }
     }
 }
 ?>
-<form action="index_.php?page=compte" method="get" class="card p-4">
+<?php if ($message): ?>
+    <div class="alert alert-<?= $messageType ?>"><?= $message ?></div>
+<?php endif; ?>
+<form action="index_.php?page=compte" method="post" class="card p-4">
     <h3>Créer un compte client</h3>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>

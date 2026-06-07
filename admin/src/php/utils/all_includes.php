@@ -1,5 +1,7 @@
 <?php
-// Détection automatique de l'environnement (front ou admin ou ajax)
+session_start();
+
+// Détection environnement
 $isAdmin = str_contains($_SERVER['REQUEST_URI'], '/admin/src/') || str_contains($_SERVER['REQUEST_URI'], '/admin/src/php/ajax/');
 
 if ($isAdmin) {
@@ -19,12 +21,14 @@ if (file_exists($pathDb) && file_exists($pathAutoloader)) {
     die("Fichiers de configuration manquants.");
 }
 
-function getImageUrl($imageName) {
-    if (empty($imageName)) {
-        return "admin/assets/images/default.jpg";
+if (!function_exists('getImageUrl')) {
+    function getImageUrl($imageName) {
+        if (empty($imageName)) {
+            return "admin/assets/images/default.jpg";
+        }
+        if (filter_var($imageName, FILTER_VALIDATE_URL)) {
+            return $imageName;
+        }
+        return "admin/assets/images/" . ltrim($imageName, '/');
     }
-    if (filter_var($imageName, FILTER_VALIDATE_URL)) {
-        return $imageName;
-    }
-    return "admin/assets/images/" . ltrim($imageName, '/');
 }
