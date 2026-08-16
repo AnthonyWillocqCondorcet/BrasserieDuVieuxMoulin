@@ -18,28 +18,17 @@ class BiereDAO {
         return $this->_cnx->query("SELECT * FROM Biere WHERE taux_alcool = 0")->fetchAll(PDO::FETCH_ASSOC);
     }
     public function deleteBiere($id_biere) {
-        try {
-            $this->_cnx->beginTransaction();
-            $this->_cnx->prepare("DELETE FROM est_vendu WHERE id_biere = ?")->execute([$id_biere]);
-            $stmt = $this->_cnx->prepare("DELETE FROM Biere WHERE id_biere = ?");
-            $res = $stmt->execute([$id_biere]);
-            $this->_cnx->commit();
-            return $res;
-        } catch (Exception $e) {
-            $this->_cnx->rollBack();
-            return false;
-        }
+        $stmt = $this->_cnx->prepare("SELECT delete_biere(:id)");
+        $stmt->execute([':id' => $id_biere]);
+        return (bool) $stmt->fetchColumn();
     }
     public function updateChampBiere($champ, $nouveau, $id_biere) {
-        $colonnes = ['nom','volume','taux_alcool','couleur','prix','stock','image','id_brasserie','id_administrateur'];
-        if (!in_array($champ, $colonnes)) return false;
-        $sql = "UPDATE Biere SET $champ = :val WHERE id_biere = :id";
-        $stmt = $this->_cnx->prepare($sql);
-        return $stmt->execute([':val' => $nouveau, ':id' => $id_biere]);
+        $stmt = $this->_cnx->prepare("SELECT update_champ_biere(:champ, :nouveau, :id)");
+        $stmt->execute([':champ' => $champ, ':nouveau' => $nouveau, ':id' => $id_biere]);
+        return (bool) $stmt->fetchColumn();
     }
     public function ajoutBiere($nom, $volume, $taux_alcool, $couleur, $prix, $stock, $image, $id_brasserie, $id_administrateur) {
-        $sql = "INSERT INTO Biere (nom, volume, taux_alcool, couleur, prix, stock, image, id_brasserie, id_administrateur) VALUES (?,?,?,?,?,?,?,?,?) RETURNING id_biere";
-        $stmt = $this->_cnx->prepare($sql);
+        $stmt = $this->_cnx->prepare("SELECT ajout_biere(?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$nom, $volume, $taux_alcool, $couleur, $prix, $stock, $image, $id_brasserie, $id_administrateur]);
         return $stmt->fetchColumn();
     }

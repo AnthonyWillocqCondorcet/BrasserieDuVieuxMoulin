@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
     $admin = $adminDAO->getAdmin($email, $password);
     if ($admin) {
         $_SESSION['admin'] = $admin;
-        header("Location: admin/src/index_.php");
+        header("Location: admin/index_.php");
         exit;
     }
 

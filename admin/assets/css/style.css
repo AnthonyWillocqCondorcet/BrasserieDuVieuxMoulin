@@ -1,5 +1,30 @@
 body {
     background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Centrage de la colonne contenant les détails de la bière */
+.details-biere {
+    text-align: center;
+}
+.details-biere .img-fluid {
+    max-height: 350px;
+    width: auto;
+    height: auto;
+}
+.details-biere .row {
+    justify-content: center;
+}
+.details-biere .col-md-6 {
+    max-width: 600px; /* Largeur maximale pour une meilleure lisibilité */
+    flex: 0 0 auto; /* Évite l'étirement */
+}
+
+#banner{
+    background-color: #282c34;
+    width: 100%;
+    padding: 10px 0;
 }
 
 /* Uniformisation des images dans les cartes */
@@ -29,12 +54,11 @@ body {
 html, body {
     height: 100%;
 }
-body {
-    display: flex;
-    flex-direction: column;
-}
+
 #wrapper {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 footer {
     margin-top: auto;

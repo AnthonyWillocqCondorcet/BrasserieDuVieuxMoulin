@@ -1,11 +1,11 @@
 <?php
 if (isset($_GET['submit'])) {
-    require '../src/php/classes/AdminDAO.class.php';
+    require 'src/php/classes/AdminDAO.class.php';
     $adminDAO = new AdminDAO($cnx);
     $adm = $adminDAO->getAdmin($_GET['login'], $_GET['password']);
     if ($adm) {
         $_SESSION['admin'] = $adm;
-        header("Location: ../src/index_.php?page=accueil");
+        header("Location: ../index_.php?page=accueil");
         exit;
     } else {
         $erreur = "Identifiants invalides";

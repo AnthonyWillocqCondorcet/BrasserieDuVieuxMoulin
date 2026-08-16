@@ -1,5 +1,5 @@
 <?php
-require '../src/php/utils/check_connexion.php';
+require 'src/php/utils/check_connexion.php';
 $commandeDAO = new CommandeDAO($cnx);
 $commandes = $commandeDAO->getAllCommandes();
 ?>

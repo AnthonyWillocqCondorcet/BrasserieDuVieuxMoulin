@@ -1,5 +1,5 @@
 <?php
-require '../src/php/utils/check_connexion.php';
+require 'src/php/utils/check_connexion.php';
 $biereDAO = new BiereDAO($cnx);
 $bieres = $biereDAO->getAllBieres();
 ?>
@@ -26,4 +26,4 @@ $bieres = $biereDAO->getAllBieres();
 </table>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/gestion_biere.js"></script>
+<script src="assets/js/gestion_biere.js"></script>

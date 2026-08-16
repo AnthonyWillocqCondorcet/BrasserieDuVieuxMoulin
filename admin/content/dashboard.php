@@ -1,5 +1,5 @@
 <?php
-require '../src/php/utils/check_connexion.php';
+require 'src/php/utils/check_connexion.php';
 ?>
 <h2>Accueil administration</h2>
 <p>Bienvenue dans l'espace administrateur.</p>

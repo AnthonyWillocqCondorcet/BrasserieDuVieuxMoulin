@@ -10,7 +10,7 @@ $(function() {
         input.focus().blur(function() {
             var nouveau = input.val();
             $.ajax({
-                url: '../src/php/ajax/ajaxUpdateBiere.php',
+                url: 'src/php/ajax/ajaxUpdateBiere.php',
                 method: 'GET',
                 data: { champ: champ, nouveau: nouveau, id_biere: id },
                 success: function(data) {
@@ -34,7 +34,7 @@ $(function() {
         if (confirm('Supprimer cette bière ?')) {
             var id = $(this).closest('tr').data('id');
             $.ajax({
-                url: '../src/php/ajax/ajaxDeleteBiere.php',
+                url: 'src/php/ajax/ajaxDeleteBiere.php',
                 method: 'GET',
                 data: { id_biere: id },
                 success: function(data) {

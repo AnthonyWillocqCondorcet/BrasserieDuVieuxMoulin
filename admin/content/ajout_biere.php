@@ -1,6 +1,6 @@
 <?php
-require '../src/php/utils/check_connexion.php';
-require '../src/php/classes/BrasserieDAO.class.php';
+require 'src/php/utils/check_connexion.php';
+require 'src/php/classes/BrasserieDAO.class.php';
 
 $message = '';
 $messageType = '';
